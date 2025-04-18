@@ -8,9 +8,12 @@ use solana_program::{
 };
 
 const PUMPFUN_BUY_SELECTOR: &[u8; 8] = &[102, 6, 61, 18, 1, 218, 235, 234];
+const PUMPFUN_SELL_SELECTOR: &[u8; 8] = &[103, 6, 61, 18, 1, 218, 235, 234];
 
 pub const PUMP_SELECTOR: &[u8; 8] = &[82, 225, 119, 231, 78, 29, 45, 70];
 pub const PUMP_AMM_SELECTOR: &[u8; 8] = &[129, 59, 179, 195, 110, 135, 61, 2];
+pub const PUMP_SELL_SELECTOR: &[u8; 8] = &[83, 225, 119, 231, 78, 29, 45, 70];
+pub const PUMP_AMM_SELL_SELECTOR: &[u8; 8] = &[130, 59, 179, 195, 110, 135, 61, 2];
 
 const PUMP_PROGRAM: Pubkey = pubkey!("6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P");
 const PUMP_AMM_PROGRAM_ID: Pubkey = pubkey!("pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA");
@@ -49,6 +52,36 @@ pub fn process_pump_buy(accounts: &[AccountInfo], instruction_data: &[u8]) -> Pr
 pub fn process_pump_amm_buy(accounts: &[AccountInfo], instruction_data: &[u8]) -> ProgramResult {
     let mut data = Vec::with_capacity(ARG_LEN);
     data.extend_from_slice(PUMPFUN_BUY_SELECTOR);
+    data.extend_from_slice(instruction_data);
+
+    invoke_unchecked(
+        &Instruction {
+            program_id: PUMP_AMM_PROGRAM_ID,
+            accounts: to_account_metas(accounts),
+            data,
+        },
+        accounts,
+    )
+}
+
+pub fn process_pump_sell(accounts: &[AccountInfo], instruction_data: &[u8]) -> ProgramResult {
+    let mut data = Vec::with_capacity(ARG_LEN);
+    data.extend_from_slice(PUMPFUN_SELL_SELECTOR);
+    data.extend_from_slice(instruction_data);
+
+    invoke_unchecked(
+        &Instruction {
+            program_id: PUMP_PROGRAM,
+            accounts: to_account_metas(accounts),
+            data,
+        },
+        accounts,
+    )
+}
+
+pub fn process_pump_amm_sell(accounts: &[AccountInfo], instruction_data: &[u8]) -> ProgramResult {
+    let mut data = Vec::with_capacity(ARG_LEN);
+    data.extend_from_slice(PUMPFUN_SELL_SELECTOR);
     data.extend_from_slice(instruction_data);
 
     invoke_unchecked(

@@ -5,19 +5,26 @@ use solana_program::{
 
 use crate::instructions::ata::{process_create_associated_token_account, ATA_SELECTOR};
 use crate::instructions::pump::{
-    process_pump_amm_buy, process_pump_buy, PUMP_AMM_SELECTOR, PUMP_SELECTOR,
+    process_pump_amm_buy, process_pump_amm_sell, process_pump_buy, process_pump_sell,
+    PUMP_AMM_SELL_SELECTOR, PUMP_AMM_SELECTOR, PUMP_SELL_SELECTOR, PUMP_SELECTOR,
 };
-use crate::instructions::raydium::{process_raydium_buy, RAYDIUM_BUY_SELECTOR};
+use crate::instructions::raydium::{process_raydium_buy, process_raydium_sell, RAYDIUM_BUY_SELECTOR, RAYDIUM_SELL_SELECTOR};
 use crate::instructions::slot::{process_expired_slot, EXPIRED_SLOT_SELECTOR};
 
 type SelectorHandler = fn(&[AccountInfo], &[u8]) -> ProgramResult;
 
-const SELECTORS: [(&[u8; 8], SelectorHandler); 5] = [
+const SELECTORS: [(&[u8; 8], SelectorHandler); 9] = [
     (PUMP_SELECTOR, |accounts, rest| {
         process_pump_buy(accounts, rest)
     }),
     (PUMP_AMM_SELECTOR, |accounts, rest: &[u8]| {
         process_pump_amm_buy(accounts, rest)
+    }),
+    (PUMP_SELL_SELECTOR, |accounts, rest| {
+        process_pump_sell(accounts, rest)
+    }),
+    (PUMP_AMM_SELL_SELECTOR, |accounts, rest| {
+        process_pump_amm_sell(accounts, rest)
     }),
     (ATA_SELECTOR, |accounts, rest| {
         process_create_associated_token_account(accounts, rest)
@@ -25,6 +32,9 @@ const SELECTORS: [(&[u8; 8], SelectorHandler); 5] = [
     (EXPIRED_SLOT_SELECTOR, |_, rest| process_expired_slot(rest)),
     (RAYDIUM_BUY_SELECTOR, |accounts, rest| {
         process_raydium_buy(accounts, rest)
+    }),
+    (RAYDIUM_SELL_SELECTOR, |accounts, rest| {
+        process_raydium_sell(accounts, rest)
     }),
 ];
 
