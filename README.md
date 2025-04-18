@@ -35,22 +35,27 @@
      - 普通卖出 (`process_pump_sell`)
      - AMM 卖出 (`process_pump_amm_sell`)
 
-## 技术架构
-
-### 项目结构
+## 项目结构
 
 ```
-.
-├── programs/           # 智能合约代码
-│   └── dex/           # DEX 代理合约
-│       ├── src/       # 源代码
-│       │   ├── instructions/  # 指令处理
-│       │   ├── lib.rs        # 入口文件
-│       │   └── processor.rs   # 指令处理器
-│       └── Cargo.toml
-├── tests/             # 测试代码
-├── Cargo.lock         # 依赖锁定文件
-└── Cargo.toml         # 项目配置文件
+amm-proxy-contract/
+├── programs/                    # 智能合约代码目录
+│   └── dex/                     # DEX 代理合约
+│       ├── src/                 # 源代码目录
+│       │   ├── lib.rs          # 合约入口文件
+│       │   ├── processor.rs    # 指令处理器
+│       │   └── instructions/   # 指令模块目录
+│       │       ├── raydium.rs  # Raydium 相关操作
+│       │       ├── pump.rs     # Pump 相关操作
+│       │       ├── ata.rs      # 关联代币账户管理
+│       │       └── slot.rs     # 时间槽管理
+│       └── Cargo.toml          # 合约项目配置文件
+├── tests/                       # 测试代码目录
+│   └── src/                    # 测试源代码
+│       └── main.rs             # 测试主文件
+├── Cargo.toml                   # 工作空间配置文件
+├── Cargo.lock                   # 依赖锁定文件
+└── README.md                    # 项目说明文档
 ```
 
 ### 主要组件
@@ -75,7 +80,7 @@
 
 1. 克隆项目
 ```bash
-git clone https://github.com/your-username/amm-proxy-contract.git
+git clone https://github.com/vnxfsc/amm-proxy-contract.git
 cd amm-proxy-contract
 ```
 
@@ -185,5 +190,4 @@ MIT License
 
 ## 联系方式
 
-- 项目维护者：[Your Name]
-- 邮箱：[your.email@example.com]
+- 社区：buff中文社区[t.me/chainbuff]
