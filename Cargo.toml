@@ -1,0 +1,24 @@
+[workspace]
+resolver="2"
+members = [
+    "programs/*",
+    "tests"
+]
+
+[profile.release]
+# 启用激进优化
+opt-level = 3
+# 禁用溢出检查（BPF 运行时已强制检查溢出）
+overflow-checks = false
+# 启用 LTO（链接时优化）
+lto = "fat"
+# 单代码生成单元，最大化优化效果
+codegen-units = 1
+# 禁用调试信息（减少二进制体积）
+debug = false
+
+[profile.release.build-override]
+# 确保依赖项也使用最高优化
+opt-level = 3
+codegen-units = 1
+incremental = false
