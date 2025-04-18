@@ -190,4 +190,4 @@ MIT License
 
 ## 联系方式
 
-- 社区：buff中文社区[t.me/chainbuff]
+- 交流群：[Buff社区](https://t.me/chainbuff)
