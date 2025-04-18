@@ -54,7 +54,6 @@ amm-proxy-contract/
 │   ├── rust/                  # Rust 测试
 │   ├── typescript/            # TypeScript 测试
 │   └── javascript/            # JavaScript 测试
-│       └── main.rs             # 测试主文件
 ├── Cargo.toml                   # 工作空间配置文件
 ├── Cargo.lock                   # 依赖锁定文件
 └── README.md                    # 项目说明文档
