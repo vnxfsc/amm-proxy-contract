@@ -51,7 +51,9 @@ amm-proxy-contract/
 │       │       └── slot.rs     # 时间槽管理
 │       └── Cargo.toml          # 合约项目配置文件
 ├── tests/                       # 测试代码目录
-│   └── src/                    # 测试源代码
+│   ├── rust/                  # Rust 测试
+│   ├── typescript/            # TypeScript 测试
+│   └── javascript/            # JavaScript 测试
 │       └── main.rs             # 测试主文件
 ├── Cargo.toml                   # 工作空间配置文件
 ├── Cargo.lock                   # 依赖锁定文件
@@ -75,6 +77,26 @@ amm-proxy-contract/
 - Rust 1.65.0 或更高版本
 - Solana CLI 工具
 - Anchor 框架（可选）
+- Node.js 16+
+
+## 安装依赖
+
+### Rust 依赖
+```bash
+cargo build
+```
+
+### TypeScript 依赖
+```bash
+cd tests/typescript
+npm install
+```
+
+### JavaScript 依赖
+```bash
+cd tests/javascript
+npm install
+```
 
 ## 构建和测试
 
@@ -191,3 +213,31 @@ MIT License
 ## 联系方式
 
 - 交流群：[Buff社区](https://t.me/chainbuff)
+
+## 环境变量
+
+在运行测试之前，需要设置以下环境变量：
+
+```bash
+# .env 文件
+PRIVATE_KEY=你的私钥
+```
+
+## 测试
+
+### Rust 测试
+```bash
+cargo test
+```
+
+### TypeScript 测试
+```bash
+cd tests/typescript
+npm test
+```
+
+### JavaScript 测试
+```bash
+cd tests/javascript
+npm test
+```
