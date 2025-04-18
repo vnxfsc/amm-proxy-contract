@@ -1,11 +1,11 @@
 [package]
-name = "mango-contract"
+name = "amm-proxy-contract"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
 crate-type = ["cdylib", "lib"]
-name="mango_contract"
+name="amm_proxy_contract"
 
 [dependencies]
 solana-program = "=2.2.1"

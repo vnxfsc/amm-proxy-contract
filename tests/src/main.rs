@@ -69,7 +69,7 @@ pub fn get_account_seed() -> String {
 async fn pump_buy() -> Result<(), Error> {
     let private_key = env::var("PRIVATE_KEY").unwrap();
     let rpc_client =
-        RpcClient::new_with_commitment("https://solana-mainnet.api.syndica.io/api-key/3VjARepWJrjuNMVRwo4gYrpVygK17wX2z6a1zhLjcxTTRqR8AsYR21UvPLhM21JXZQQHSgN1zQerfvPdLQuM9X1Juk7g5VyVYWz".to_string(), CommitmentConfig::confirmed());
+        RpcClient::new_with_commitment("".to_string(), CommitmentConfig::confirmed());
 
     let token_amount = 351100_u64;
     let max_sol_cost = 11000000_u64;
