@@ -13,7 +13,7 @@ use crate::instructions::slot::{process_expired_slot, EXPIRED_SLOT_SELECTOR};
 
 type SelectorHandler = fn(&[AccountInfo], &[u8]) -> ProgramResult;
 
-const SELECTORS: [(&[u8; 8], SelectorHandler); 9] = [
+const SELECTORS: [(&[u8; 8], SelectorHandler); 8] = [
     (PUMP_SELECTOR, |accounts, rest| {
         process_pump_buy(accounts, rest)
     }),
