@@ -22,6 +22,24 @@
      - 完整的链接时优化（LTO）
      - 单一代码生成单元
 
+## 最近更新
+
+### 2024年4月更新 - 修复Pump协议指令鉴别器不匹配问题
+
+**问题描述**:
+在使用Pump协议普通交易(内盘)进行卖出操作时，交易失败并返回错误：
+```
+"Instruction #1 Failed - custom program error: 101 | Fallback functions are not supported"
+```
+
+**原因分析**:
+内盘和外盘的sell指令鉴别器配置错误。原先假设内盘sell鉴别器是`[103, 6, 61, 18, 1, 218, 235, 234]`，但经过交易分析发现正确的鉴别器是`[51, 230, 133, 164, 1, 127, 131, 173]`，与外盘sell鉴别器相同。
+
+**修复方案**:
+1. 更新`PUMPFUN_SELL_SELECTOR`为正确的内盘sell鉴别器: `[51, 230, 133, 164, 1, 127, 131, 173]`
+2. 明确定义`PUMPAMM_SELL_SELECTOR`为外盘sell鉴别器: `[51, 230, 133, 164, 1, 127, 131, 173]`（与内盘相同）
+3. 同时定义`PUMPAMM_BUY_SELECTOR`以提高代码清晰度: `[102, 6, 61, 18, 1, 218, 235, 234]`
+
 ## 支持的 DEX
 
 1. **Raydium**
@@ -51,9 +69,8 @@ amm-proxy-contract/
 │       │       └── slot.rs     # 时间槽管理
 │       └── Cargo.toml          # 合约项目配置文件
 ├── tests/                       # 测试代码目录
-│   ├── rust/                  # Rust 测试
-│   ├── typescript/            # TypeScript 测试
-│   └── javascript/            # JavaScript 测试
+│   ├── src/                    # Rust 测试源码
+│   └── Cargo.toml             # 测试项目配置文件
 ├── Cargo.toml                   # 工作空间配置文件
 ├── Cargo.lock                   # 依赖锁定文件
 └── README.md                    # 项目说明文档
@@ -71,6 +88,7 @@ amm-proxy-contract/
    - `ata.rs`: 关联代币账户管理
    - `slot.rs`: 时间槽管理
 
+
 ## 开发环境要求
 
 - Rust 1.65.0 或更高版本
@@ -83,18 +101,6 @@ amm-proxy-contract/
 ### Rust 依赖
 ```bash
 cargo build
-```
-
-### TypeScript 依赖
-```bash
-cd tests/typescript
-npm install
-```
-
-### JavaScript 依赖
-```bash
-cd tests/javascript
-npm install
 ```
 
 ## 构建和测试
@@ -112,20 +118,28 @@ cargo build
 
 3. 运行测试
 ```bash
-cargo test
+cd tests
+cargo run
 ```
 
 ## 部署
 
 1. 构建发布版本
 ```bash
-cargo build --release
+cargo build-bpf
 ```
 
 2. 部署到 Solana 网络
 ```bash
 solana program deploy target/deploy/amm_proxy_contract.so
 ```
+
+## 部署信息
+
+- 代理合约程序ID: `AmXoSVCLjsfKrwCUqvkMFXYcDzZ4FeoMYs7SAhGyfMGy`
+- Pump程序ID: `6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P`
+- PumpAMM程序ID: `pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA`
+- Raydium程序ID: `675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8`
 
 ## 使用示例
 
@@ -226,17 +240,6 @@ PRIVATE_KEY=你的私钥
 
 ### Rust 测试
 ```bash
-cargo test
-```
-
-### TypeScript 测试
-```bash
-cd tests/typescript
-npm test
-```
-
-### JavaScript 测试
-```bash
-cd tests/javascript
-npm test
-```
+cd tests
+cargo run
+``` 
