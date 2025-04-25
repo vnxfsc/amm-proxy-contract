@@ -1,0 +1,20 @@
+[package]
+name = "tests"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+borsh="1.5.7"
+borsh-derive = "1.5.7"
+dotenvy = "0.15.7"
+solana-sdk = "2.2.1"
+tokio = { version = "1.43.0", features = ["net", "macros", "io-std", "rt-multi-thread", "time", "sync"] }
+spl-associated-token-account = { version = "6.0.0", features = [
+    "no-entrypoint",
+] }
+spl-token = { version = "8.0.0", features = ["no-entrypoint"] }
+solana-rpc-client = "2.2.1"
+solana-rpc-client-api = "2.2.1"
+sha2 = "0.10.8"
+spl-associated-token-account-client = "2.0.0"
+rand = "0.9.0"
