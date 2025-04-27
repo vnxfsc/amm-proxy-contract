@@ -1,6 +1,6 @@
 # AMM Proxy Contract
 
-本项目是基于 [ChainBuff/amm-proxy-contract](https://github.com/ChainBuff/amm-proxy-contract) 进行功能完善的 Solana 区块链 AMM（自动做市商）代理合约。
+本项目是基于 [ChainBuff/amm-proxy-contract](https://github.com/ChainBuff/amm-proxy-contract) 进行功能完善的 Solana 区块链 Swap 合约。
 
 ## 项目来源
 
@@ -224,7 +224,7 @@ let amm_sell_instruction = Instruction {
 MIT License
 
 ## 联系方式
-
+- 电 报：[小P](https://t.me/caobizhiwang)
 - 交流群：[Buff社区](https://t.me/chainbuff)
 
 ## 环境变量
